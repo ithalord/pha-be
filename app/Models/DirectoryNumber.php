@@ -17,4 +17,9 @@ class DirectoryNumber extends Model
 	{
 		return $this->belongsTo('App\Models\DitectoryNumberType');
 	}
+
+	public function directoryDetail()
+	{
+		return $this->belongsTo('App\Models\DirectoryDetail');
+	}
 }
