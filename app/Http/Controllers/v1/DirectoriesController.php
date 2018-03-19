@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Directory;
 use App\Models\DirectoryDetail;
+use App\Models\DirectoryNumber;
 
 class DirectoriesController extends Controller
 {
@@ -40,6 +41,8 @@ class DirectoriesController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+        
+        return response()->json($input);
 
         $this->validate($request, array(
             'address' => 'required',
