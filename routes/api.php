@@ -21,4 +21,6 @@ Route::prefix('directory')->group(function() {
 	 Route::resource('/types', 'v1\DirectoryNumberTypesController',
         array('except' => array('create', 'edit')));
 
+	 Route::resource('/contacts', 'v1\DirectoryNumbersController',
+        array('except' => array('create', 'edit')));
 });
