@@ -41,8 +41,6 @@ class DirectoriesController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        
-        return response()->json($input);
 
         $this->validate($request, array(
             'address' => 'required',
@@ -52,11 +50,15 @@ class DirectoriesController extends Controller
         $directory = Directory::create($input);
         $directory->save();
 
-        $directoryDetails = $request->input('directory_details');
+        $contacts = $request->input('contacts');
 
-        foreach($directoryDetails as $dd) {
-            $directory->directoryDetails()->save(
-                new DirectoryDetail($dd));
+        foreach($contacts as $con) {
+            $contact = DirectoryNumber::create($con);
+            $contact->save();
+            $directoryDetail = DirectoryDetail::create([
+                'directory_id'          =>  $directory['id'],
+                'directory_number_id'   =>  $contact['id']
+            ]);
         }
 
         $directory = Directory::with('directoryDetails.directoryNumbers.ditectoryNumberType')->find($directory->id);
