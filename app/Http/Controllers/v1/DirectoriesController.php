@@ -74,7 +74,7 @@ class DirectoriesController extends Controller
      */
     public function show($id)
     {
-        $directory = Directory::with('directoryDetails.directoryNumbers.ditectoryNumberType')->find($directory->id);
+        $directory = Directory::with('directoryDetails.directoryNumbers.ditectoryNumberType')->find($id);
 
         return response()->json(['directory' => $directory]);
     }
