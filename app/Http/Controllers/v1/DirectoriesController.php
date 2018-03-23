@@ -24,7 +24,7 @@ class DirectoriesController extends Controller
             'person',
             'address',
             'company',
-            'directoryDetails.directoryNumbers.ditectoryNumberType'
+            'directoryDetails.directoryNumber.ditectoryNumberType'
         )->get();
 
         return response()->json(['directories' => $directories]);
@@ -58,7 +58,8 @@ class DirectoriesController extends Controller
             'middlename' =>  $person['middlename'],
             'lastname' =>  $person['lastname'],
             'suffixname' =>  $person['suffixname'],
-            'designation' =>  $person['designation']
+            'designation' =>  $person['designation'],
+            'fullname' =>  $person['fullname']
         ]);
 
         $address = Address::create([
@@ -94,7 +95,7 @@ class DirectoriesController extends Controller
             'person',
             'address',
             'company',
-            'directoryDetails.directoryNumbers.ditectoryNumberType'
+            'directoryDetails.directoryNumber.ditectoryNumberType'
         )->find($directory->id);
 
         return response()->json(['directory' => $directory]);
@@ -112,7 +113,7 @@ class DirectoriesController extends Controller
             'person',
             'address',
             'company',
-            'directoryDetails.directoryNumbers.ditectoryNumberType'
+            'directoryDetails.directoryNumber.ditectoryNumberType'
         )->find($id);
 
         return response()->json(['directory' => $directory]);

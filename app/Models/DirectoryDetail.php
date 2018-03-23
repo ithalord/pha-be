@@ -19,7 +19,7 @@ class DirectoryDetail extends Model
 		return $this->belongsTo('App\Models\Directory');
 	}
 
-	public function directoryNumbers()
+	public function directoryNumber()
 	{
 		return $this->belongsTo('App\Models\DirectoryNumber', 'directory_number_id');
 	}

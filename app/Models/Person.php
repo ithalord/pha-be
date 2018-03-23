@@ -11,7 +11,8 @@ class Person extends Model
 		'middlename',
 		'lastname',
 		'suffixname',
-		'designation'
+		'designation',
+		'fullname'
 	];
 
 	protected $casts = [
