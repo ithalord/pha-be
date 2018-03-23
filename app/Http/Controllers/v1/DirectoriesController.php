@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Directory;
 use App\Models\DirectoryDetail;
 use App\Models\DirectoryNumber;
+use App\Models\Person;
+use App\Models\Address;
+use App\Models\Company;
 
 class DirectoriesController extends Controller
 {
@@ -17,7 +20,12 @@ class DirectoriesController extends Controller
      */
     public function index()
     {
-        $directories = Directory::with('directoryDetails.directoryNumbers.ditectoryNumberType')->get();
+        $directories = Directory::with(
+            'person',
+            'address',
+            'company',
+            'directoryDetails.directoryNumbers.ditectoryNumberType'
+        )->get();
 
         return response()->json(['directories' => $directories]);
     }
@@ -40,26 +48,54 @@ class DirectoriesController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-        
-        return response()->json($input);
+        $person = $request->input('person');
+        $address = $request->input('address');
+        $company = $request->input('company');
+        $contacts = $request->input('contacts');
 
-        $this->validate($request, array(
-            'address' => 'required',
-            'person' => 'required',
-        ));
+        $person = Person::create([
+            'firstname' =>  $person['firstname'],
+            'middlename' =>  $person['middlename'],
+            'lastname' =>  $person['lastname'],
+            'suffixname' =>  $person['suffixname'],
+            'designation' =>  $person['designation']
+        ]);
 
-        $directory = Directory::create($input);
-        $directory->save();
+        $address = Address::create([
+            'street' =>  $address['street'],
+            'barangay_id' =>  $address['barangay_id'],
+            'city_id' =>  $address['city_id'],
+            'province_id' =>  $address['province_id'],
+            'region_id' =>  $address['region_id'],
+            'complete_address' =>  $address['complete_address']
+        ]);
 
-        $directoryDetails = $request->input('directory_details');
+        $company = Company::create([
+            'description'   =>  $company['description'],
+            'abbreviation'   =>  $company['abbreviation']
+        ]);
 
-        foreach($directoryDetails as $dd) {
-            $directory->directoryDetails()->save(
-                new DirectoryDetail($dd));
+        $directory = Directory::create([
+            'person_id' =>  $person['id'],
+            'address_id' =>  $address['id'],
+            'company_id' =>  $company['id']
+        ]);
+
+        foreach($contacts as $con) {
+            $contact = DirectoryNumber::create($con);
+            $contact->save();
+            $directoryDetail = DirectoryDetail::create([
+                'directory_id'          =>  $directory['id'],
+                'directory_number_id'   =>  $contact['id']
+            ]);
         }
 
-        $directory = Directory::with('directoryDetails.directoryNumbers.ditectoryNumberType')->find($directory->id);
+        $directory = Directory::with(
+            'person',
+            'address',
+            'company',
+            'directoryDetails.directoryNumbers.ditectoryNumberType'
+        )->find($directory->id);
 
         return response()->json(['directory' => $directory]);
     }
@@ -72,7 +108,14 @@ class DirectoriesController extends Controller
      */
     public function show($id)
     {
-        //
+        $directory = Directory::with(
+            'person',
+            'address',
+            'company',
+            'directoryDetails.directoryNumbers.ditectoryNumberType'
+        )->find($id);
+
+        return response()->json(['directory' => $directory]);
     }
 
     /**

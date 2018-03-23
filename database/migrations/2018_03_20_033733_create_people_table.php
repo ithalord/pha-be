@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDirectoriesTable extends Migration
+class CreatePeopleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateDirectoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('directories', function (Blueprint $table) {
+        Schema::create('people', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('person_id');
-            $table->integer('address_id');
-            $table->integer('company_id');
+            $table->string('firstname');
+            $table->string('middlename');
+            $table->string('lastname');
+            $table->string('suffixname');
+            $table->string('designation');
+
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ class CreateDirectoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('directories');
+        Schema::dropIfExists('people');
     }
 }
