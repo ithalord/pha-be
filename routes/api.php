@@ -27,3 +27,7 @@ Route::prefix('log')->group(function() {
 	 Route::resource('/directories', 'v1\DirectoriesController',
         array('except' => array('create', 'edit')));
 });
+
+Route::prefix('auth')->group(function() {
+	Route::post('/login', 'v1\AuthenticationController@authenticate');
+});
