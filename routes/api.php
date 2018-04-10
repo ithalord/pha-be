@@ -26,6 +26,16 @@ Route::prefix('log')->group(function() {
 
 	 Route::resource('/directories', 'v1\DirectoriesController',
         array('except' => array('create', 'edit')));
+
+	 Route::resource('/companies', 'v1\CompaniesController',
+        array('except' => array('create', 'edit')));
+
+	 Route::resource('/addresses', 'v1\AddressesController',
+        array('except' => array('create', 'edit')));
+
+	 Route::prefix('get')->group(function() {
+	 	Route::get('find_by_description', 'v1\CompaniesController@searchByDescription');
+	 });
 });
 
 Route::prefix('auth')->group(function() {
