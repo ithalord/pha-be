@@ -38,6 +38,14 @@ Route::prefix('log')->group(function() {
 	 });
 });
 
+Route::prefix('address_book')->group(function() {
+	 Route::resource('/years', 'AddressBook\YearsController',
+        array('except' => array('create', 'edit')));
+
+	 Route::resource('/events', 'AddressBook\EventsController',
+        array('except' => array('create', 'edit')));
+});
+
 Route::prefix('auth')->group(function() {
 	Route::post('/login', 'v1\AuthenticationController@authenticate');
 });
