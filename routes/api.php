@@ -44,6 +44,9 @@ Route::prefix('address_book')->group(function() {
 
 	 Route::resource('/events', 'AddressBook\EventsController',
         array('except' => array('create', 'edit')));
+
+	 Route::resource('/participants', 'AddressBook\AddressBookDetailsController',
+        array('except' => array('create', 'edit')));
 });
 
 Route::prefix('auth')->group(function() {

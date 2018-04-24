@@ -4,9 +4,11 @@ namespace App\Http\Controllers\AddressBook;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Year;
+use App\Models\AddressBook;
+use App\Models\AddressBookDetail;
+use App\Models\AddressBookParticipant;
 
-class YearsController extends Controller
+class AddressBookDetailsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +17,7 @@ class YearsController extends Controller
      */
     public function index()
     {
-        $years = Year::all();
-
-        return response()->json(['years' => $years]);
+        return response()->json(['address_books' => AddressBook::all()]);
     }
 
     /**
@@ -39,18 +39,27 @@ class YearsController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+        $participants = $input['participants'];
 
-        $this->validate($request, array(
-            'from'          =>  'required',
-            'to'            =>  'required',
-            'description'   =>  'required'
-        ));
+        foreach($participants as $p) {
+            $addressBookParticipant = AddressBookParticipant::create([
+                'designation'       =>  $p['designation'],
+                'firstname'       =>  $p['firstname'],
+                'middlename'       =>  $p['middlename'],
+                'lastname'       =>  $p['lastname'],
+                'suffixname'       =>  $p['suffixname'],
+                'is_attending'       =>  $p['is_attending']
+            ]);
 
-        $year = Year::create($input);
-        $year->save();
-        $year = Year::find($year->id);
+            $addressBookDetail = AddressBookDetail::create([
+                'address_book_participant_id' => $addressBookParticipant['id'],
+                'address_book_id' => $input['address_book_id']
+            ]);
+        }
 
-        return response()->json(['year' => $year]);
+        $addressBook = AddressBook::with('addressBookDetails.addressBookParticipant')->find($input['address_book_id']);
+
+        return response()->json(['address_book' => $addressBook]);
     }
 
     /**
@@ -61,9 +70,9 @@ class YearsController extends Controller
      */
     public function show($id)
     {
-        $years = Year::with('events')->find($id);
+        $addressBook = AddressBook::with('addressBookDetails.addressBookParticipant')->find($id);
 
-        return response()->json(['years' => $years]);
+        return response()->json(['address_book' => $addressBook]);
     }
 
     /**
