@@ -18,6 +18,21 @@ class EventsController extends Controller
         return response()->json(['events' => Event::all()]);
     }
 
+    public function changeCurrent($id)
+    {
+        $previous = Event::where('current', true)->first();
+        if ($previous) {
+            $previous->current = false;
+            $previous->save();
+        }
+
+        $setting = Event::find($id);
+        $setting->current = true;
+        $setting->save();
+
+        return response()->json(Event::all());
+    }
+
     /**
      * Show the form for creating a new resource.
      *

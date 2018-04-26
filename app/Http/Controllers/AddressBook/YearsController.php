@@ -20,6 +20,28 @@ class YearsController extends Controller
         return response()->json(['years' => $years]);
     }
 
+    public function changeCurrent($id)
+    {
+        $previous = Year::where('current', true)->first();
+        if ($previous) {
+            $previous->current = false;
+            $previous->save();
+        }
+
+        $setting = Year::find($id);
+        $setting->current = true;
+        $setting->save();
+
+        return response()->json(['years' => Year::all()]);
+    }
+
+    public function getCurrent()
+    {
+        $year = Year::where('current', true)->first();
+
+        return response()->json(['year' => $year]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

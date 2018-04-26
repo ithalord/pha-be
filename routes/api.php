@@ -38,6 +38,15 @@ Route::prefix('log')->group(function() {
 	 });
 });
 
+Route::prefix('change')->group(function() {
+	Route::get('/event/{id}', 'AddressBook\EventsController@changeCurrent');
+	Route::get('/year/{id}', 'AddressBook\YearsController@changeCurrent');
+});
+
+Route::prefix('current')->group(function() {
+	Route::get('/years', 'AddressBook\YearsController@getCurrent');
+});
+
 Route::prefix('address_book')->group(function() {
 	 Route::resource('/years', 'AddressBook\YearsController',
         array('except' => array('create', 'edit')));
