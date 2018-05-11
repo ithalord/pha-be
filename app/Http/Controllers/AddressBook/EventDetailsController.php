@@ -5,8 +5,9 @@ namespace App\Http\Controllers\AddressBook;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Models\EventDetail;
 
-class EventsController extends Controller
+class EventDetailsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,22 +16,7 @@ class EventsController extends Controller
      */
     public function index()
     {
-        return response()->json(['events' => Event::all()]);
-    }
-
-    public function changeCurrent($id)
-    {
-        $previous = Event::where('on_going', true)->first();
-        if ($previous) {
-            $previous->on_going = false;
-            $previous->save();
-        }
-
-        $setting = Event::find($id);
-        $setting->on_going = true;
-        $setting->save();
-
-        return response()->json(Event::all());
+        //
     }
 
     /**
@@ -51,23 +37,11 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-    	$input = $request->all();
+        $input = $request->all();
 
-    	$this->validate($request, array(
-    		'name'	=>		'required',
-    		'description'	=>		'required',
-    		'from'	=>		'required',
-    		'to'	=>		'required',
-    		'start_time'	=>		'required',
-    		'end_time'	=>		'required',
-    		'year_id'	=>		'required',
-    	));
+        $eventDetail = EventDetail
 
-    	$event = Event::create($input);
-    	$event->save();
-    	$event = Event::find($event->id);
-
-    	return response()->json(['event' => $event]);
+        return response()->json($input);
     }
 
     /**
@@ -78,9 +52,7 @@ class EventsController extends Controller
      */
     public function show($id)
     {
-        $event = Event::find($id);
-
-        return response()->json(['event' => $event]);
+        //
     }
 
     /**

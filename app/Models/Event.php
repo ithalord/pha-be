@@ -19,4 +19,9 @@ class Event extends Model
 	{
 		return $this->belongsTo('App\Models\Year');
 	}
+
+	public function eventDetails()
+	{
+		return $this->hasMany('App\Models\EventDetail');
+	}
 }
