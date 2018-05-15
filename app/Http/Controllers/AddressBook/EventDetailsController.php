@@ -39,7 +39,12 @@ class EventDetailsController extends Controller
     {
         $input = $request->all();
 
-        $eventDetail = EventDetail
+        $eventDetail = EventDetail::create([
+            'address_book_id'   =>  $input['address_book_id'],
+            'event_id'          =>  $input['event_id']
+        ]);
+
+        
 
         return response()->json($input);
     }

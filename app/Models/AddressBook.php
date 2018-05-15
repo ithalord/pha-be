@@ -23,11 +23,11 @@ class AddressBook extends Model
         * @var array
         */
        'columns' => [
-           'pha_code'   => 10,
-           'hospital_name'    => 10,
-           'medical_director'   => 10,
-           'administrative_officer'  => 10,
-           'region' => 30
+           'addressBooks.hospital_name'    => 10,
+           // 'medical_director'   => 10,
+           // 'administrative_officer'  => 10,
+           // 'region' => 30,
+           'addressBooks.pha_code'   => 5
        ]
    ];
 
