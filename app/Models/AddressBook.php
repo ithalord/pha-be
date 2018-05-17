@@ -23,13 +23,15 @@ class AddressBook extends Model
         * @var array
         */
        'columns' => [
-           'addressBooks.hospital_name'    => 10,
+           'addressbooks.hospital_name'    => 10,
            // 'medical_director'   => 10,
            // 'administrative_officer'  => 10,
            // 'region' => 30,
-           'addressBooks.pha_code'   => 5
+           'addressbooks.pha_code'   => 5
        ]
    ];
+
+   protected $table = 'address_books';
 
 	public function addressBookDetails()
 	{
