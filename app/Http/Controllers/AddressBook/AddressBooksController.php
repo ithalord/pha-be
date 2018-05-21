@@ -24,11 +24,13 @@ class AddressBooksController extends Controller
 
         // return response()->json($query);
 
-        // $members = AddressBook::search($query)
-        //     ->simplePaginate(20);
+        $members = AddressBook::search($query)
+            ->simplePaginate(20);
 
         // $members = AddressBook::where(' region', 'like', '%'.$query.'%')->get();
-        $members = AddressBook::where('region', $query)->get();
+
+
+        // $members = AddressBook::where('region', $query)->get();
 
         return response()->json($members);
     }
