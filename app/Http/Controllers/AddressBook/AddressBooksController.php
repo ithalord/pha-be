@@ -20,17 +20,12 @@ class AddressBooksController extends Controller
 
     public function searchMembers(Request $request)
     {
-        $query = $request['regionName'];
+        $query = $request['keyword'];
 
         // return response()->json($query);
 
         $members = AddressBook::search($query)
             ->simplePaginate(20);
-
-        // $members = AddressBook::where(' region', 'like', '%'.$query.'%')->get();
-
-
-        // $members = AddressBook::where('region', $query)->get();
 
         return response()->json($members);
     }
