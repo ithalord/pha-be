@@ -17,9 +17,9 @@ class EventDetail extends Model
 		'id'				=>	'integer'
 	];
 
-	public function addressBooks()
+	public function addressBook()
 	{
-		return $this->belongsTo('App\Models\AddressBook');
+		return $this->belongsTo('App\Models\AddressBook', 'address_book_id');
 	}
 
 	public function event()

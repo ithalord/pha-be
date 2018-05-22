@@ -24,7 +24,8 @@ class AddressBooksController extends Controller
 
         // return response()->json($query);
 
-        $members = AddressBook::search($query)
+        $members = AddressBook::where('is_attended', false)
+            ->search($query)
             ->simplePaginate(20);
 
         return response()->json($members);

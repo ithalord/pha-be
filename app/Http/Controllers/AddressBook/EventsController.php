@@ -78,7 +78,7 @@ class EventsController extends Controller
      */
     public function show($id)
     {
-        $event = Event::find($id);
+        $event = Event::with('eventDetails.addressBook')->find($id);
 
         return response()->json(['event' => $event]);
     }

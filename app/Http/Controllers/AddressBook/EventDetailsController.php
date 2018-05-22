@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\EventDetail;
+use App\Models\AddressBook;
 
 class EventDetailsController extends Controller
 {
@@ -16,7 +17,7 @@ class EventDetailsController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(EventDetail::all());
     }
 
     /**
@@ -29,13 +30,7 @@ class EventDetailsController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function addHospital(Request $request)
     {
         $input = $request->all();
 
@@ -44,9 +39,23 @@ class EventDetailsController extends Controller
             'event_id'          =>  $input['event_id']
         ]);
 
-        
+        $addressBook = AddressBook::find($input['address_book_id']);
 
-        return response()->json($input);
+        $addressBook->is_attended = 1;
+        $addressBook->save();
+
+        return response()->json();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        // 
     }
 
     /**

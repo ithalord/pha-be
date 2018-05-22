@@ -32,7 +32,8 @@ class AddressBook extends Model
    ];
 
    protected $casts = [
-    'id'  =>  'integer'
+    'id'          =>  'integer',
+    'is_attended' =>  'boolean'
    ];
 
 	public function addressBookDetails()
