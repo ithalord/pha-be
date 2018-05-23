@@ -37,7 +37,7 @@ class YearsController extends Controller
 
     public function getCurrent()
     {
-        $year = Year::where('current', true)->first();
+        $year = Year::with('events')->where('current', true)->first();
 
         return response()->json(['year' => $year]);
     }

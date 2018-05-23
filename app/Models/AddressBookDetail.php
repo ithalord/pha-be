@@ -22,8 +22,8 @@ class AddressBookDetail extends Model
 		return $this->belongsTo('App\Models\AddressBook');
 	}
 
-	public function addressBookParticipant()
+	public function attendee()
 	{
-		return $this->belongsTo('App\Models\AddressBookParticipant');
+		return $this->belongsTo('App\Models\AddressBookParticipant', 'address_book_participant_id');
 	}
 }

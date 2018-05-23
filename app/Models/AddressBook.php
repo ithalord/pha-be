@@ -25,6 +25,7 @@ class AddressBook extends Model
        'columns' => [
            'hospital_name'     => 10,
            'pha_code'          => 10,
+           'card_id'           => 10,
            'region'            => 5,
            'medical_director'  => 5,
            'chief_of_hospital' => 5

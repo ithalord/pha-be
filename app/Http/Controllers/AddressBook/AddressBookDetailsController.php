@@ -48,7 +48,7 @@ class AddressBookDetailsController extends Controller
                 'middlename'       =>  $p['middlename'],
                 'lastname'       =>  $p['lastname'],
                 'suffixname'       =>  $p['suffixname'],
-                'is_attending'       =>  $p['is_attending']
+                'is_attending'       =>  1
             ]);
 
             $addressBookDetail = AddressBookDetail::create([
