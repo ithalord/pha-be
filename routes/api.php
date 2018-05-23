@@ -43,6 +43,8 @@ Route::prefix('log')->group(function() {
 Route::prefix('change')->group(function() {
 	Route::get('/event/{id}', 'AddressBook\EventsController@changeCurrent');
 	Route::get('/year/{id}', 'AddressBook\YearsController@changeCurrent');
+	Route::get('event_detail/{id}', 'AddressBook\AddressBooksController@changeIsAttended');
+	Route::get('register_rfid', 'AddressBook\AddressBooksController@registerRFID');
 });
 
 Route::prefix('current')->group(function() {

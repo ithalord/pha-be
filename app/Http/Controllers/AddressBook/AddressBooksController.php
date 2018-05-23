@@ -31,6 +31,29 @@ class AddressBooksController extends Controller
         return response()->json($members);
     }
 
+    public function changeIsAttended($id)
+    {
+        $addressBook = AddressBook::find($id);
+
+        $addressBook->is_attended  = !$addressBook['is_attended'];
+        $addressBook->save();
+
+        return response()->json($addressBook);
+    }
+
+    public function registerRFID(Request $request)
+    {
+        $id = $request['id'];
+        $serial = $request['serial'];
+
+        $addressBook = AddressBook::find($id);
+
+        $addressBook->card_id = $serial;
+        $addressBook->save();
+
+        return response()->json($addressBook);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

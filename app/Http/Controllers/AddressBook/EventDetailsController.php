@@ -39,12 +39,14 @@ class EventDetailsController extends Controller
             'event_id'          =>  $input['event_id']
         ]);
 
+        $eventDetail = EventDetail::with('addressBook')->find($eventDetail['id']);
+
         $addressBook = AddressBook::find($input['address_book_id']);
 
         $addressBook->is_attended = 1;
         $addressBook->save();
 
-        return response()->json();
+        return response()->json($eventDetail);
     }
 
     /**
