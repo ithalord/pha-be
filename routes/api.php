@@ -61,6 +61,9 @@ Route::prefix('address_book')->group(function() {
 	 Route::resource('/participants', 'AddressBook\AddressBookDetailsController',
         array('except' => array('create', 'edit')));
 
+	 Route::resource('/person', 'AddressBook\AddressBookParticipantsController',
+        array('except' => array('create', 'edit')));
+
 	 Route::prefix('add')->group(function() {
 	 	Route::post('event_details', 'AddressBook\EventDetailsController@addHospital');
 	 });
