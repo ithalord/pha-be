@@ -23,6 +23,7 @@ class CreateEventsTable extends Migration
             $table->string('end_time');
             $table->integer('loyalty_points');
             $table->boolean('on_going');
+            $table->string('venue');
 
             $table->integer('year_id');
 

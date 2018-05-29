@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-	protected $fillable = ['name', 'description', 'from', 'to', 'start_time', 'end_time', 'year_id', 'on_going', 'loyalty_points'];
+	protected $fillable = ['name', 'description', 'from', 'to', 'start_time', 'end_time', 'year_id', 'on_going', 'loyalty_points', 'venue'];
 
 	protected $casts = [
 		'id'				=>	'integer',
@@ -22,6 +22,6 @@ class Event extends Model
 
 	public function eventDetails()
 	{
-		return $this->hasMany('App\Models\EventDetail');
+		return $this->hasMany('App\Models\EventDetail')->where('is_deleted', false);
 	}
 }

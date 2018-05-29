@@ -8,13 +8,15 @@ class EventDetail extends Model
 {
 	protected $fillable = [
 		'address_book_id',
-		'event_id'
+		'event_id',
+		'is_deleted'
 	];
 
 	protected $casts = [
 		'address_book_id'	=>	'integer',
 		'event_id'			=>	'integer',
-		'id'				=>	'integer'
+		'id'				=>	'integer',
+		'is_deleted'		=>	'boolean'
 	];
 
 	public function addressBook()

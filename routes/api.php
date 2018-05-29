@@ -48,6 +48,10 @@ Route::prefix('change')->group(function() {
 	Route::get('is_attending/{id}', 'AddressBook\AddressBookParticipantsController@changeIsAttending');
 });
 
+Route::prefix('delete')->group(function() {
+	Route::get('/event_detail', 'AddressBook\EventDetailsController@softDelete');
+});
+
 Route::prefix('current')->group(function() {
 	Route::get('/years', 'AddressBook\YearsController@getCurrent');
 });

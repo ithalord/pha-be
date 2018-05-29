@@ -79,6 +79,10 @@ class EventsController extends Controller
     public function show($id)
     {
         $event = Event::with('eventDetails.addressBook.addressBookDetails.attendee')->find($id);
+        // $event = Event::with('eventDetails.addressBook.addressBookDetails.attendee')
+        //     ->whereHas('eventDetails', function($eventDetails) {
+        //         $eventDetails->where('is_deleted', false)
+        //     })->find($id);
 
         return response()->json(['event' => $event]);
     }

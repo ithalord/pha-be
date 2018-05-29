@@ -49,6 +49,26 @@ class EventDetailsController extends Controller
         return response()->json($eventDetail);
     }
 
+    public function softDelete(Request $request)
+    {
+        $input = $request->all();
+
+        $event_detail_id = $input['event_detail_id'];
+        $address_book_id = $input['address_book_id'];
+
+        $eventDetail = EventDetail::find($event_detail_id);
+
+        $eventDetail->is_deleted = true;
+        $eventDetail->save();
+
+        $addressBook = AddressBook::find($address_book_id);
+
+        $addressBook->is_attended = !$addressBook->is_attended;
+        $addressBook->save();
+
+        return response()->json(['status' => 'successfully deleted']);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -102,6 +122,6 @@ class EventDetailsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // 
     }
 }

@@ -17,6 +17,7 @@ class CreateEventDetailsTable extends Migration
             $table->increments('id');
             $table->integer('address_book_id');
             $table->integer('event_id');
+            $table->boolean('is_deleted');
             
             $table->timestamps();
         });
