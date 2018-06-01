@@ -42,6 +42,13 @@ class YearsController extends Controller
         return response()->json(['year' => $year]);
     }
 
+    public function yearOnly()
+    {
+        $year = Year::where('current', true)->first();
+
+        return response()->json(['year' => $year]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

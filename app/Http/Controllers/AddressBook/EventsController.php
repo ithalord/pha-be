@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AddressBook;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Models\Year;
 
 class EventsController extends Controller
 {
@@ -31,6 +32,16 @@ class EventsController extends Controller
         $setting->save();
 
         return response()->json(Event::all());
+    }
+
+    public function currentEvent($id)
+    {
+        $event = Event::with('eventDetails.addressBook.addressBookDetails.attendee')
+            ->where('on_going', true)
+            ->where('year_id', $id)
+            ->first();
+
+        return response()->json(['current_event' => $event]);
     }
 
     /**

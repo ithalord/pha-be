@@ -54,6 +54,8 @@ Route::prefix('delete')->group(function() {
 
 Route::prefix('current')->group(function() {
 	Route::get('/years', 'AddressBook\YearsController@getCurrent');
+	Route::get('/year_only', 'AddressBook\YearsController@yearOnly');
+	Route::get('/event/{id}', 'AddressBook\EventsController@currentEvent');
 });
 
 Route::prefix('address_book')->group(function() {
