@@ -37,6 +37,7 @@ Route::prefix('log')->group(function() {
 	 	Route::get('find_by_description', 'v1\CompaniesController@searchByDescription');
 
 	 	Route::get('/address_books', 'AddressBook\AddressBooksController@searchMembers');
+	 	Route::get('/all', 'AddressBook\AddressBooksController@searchAllMembers');
 	 });
 });
 

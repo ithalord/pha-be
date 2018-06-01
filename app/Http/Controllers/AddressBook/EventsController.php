@@ -36,12 +36,16 @@ class EventsController extends Controller
 
     public function currentEvent($id)
     {
+        $eventOnly = Event::where('on_going', true)
+            ->where('year_id', $id)
+            ->first();
+
         $event = Event::with('eventDetails.addressBook.addressBookDetails.attendee')
             ->where('on_going', true)
             ->where('year_id', $id)
             ->first();
 
-        return response()->json(['current_event' => $event]);
+        return response()->json(['current_event' => $event, 'event_only' => $eventOnly]);
     }
 
     /**

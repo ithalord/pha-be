@@ -38,7 +38,7 @@ class AddressBookParticipant extends Model
 
         $suffix = $this->suffixname ? $this->suffixname : '';
 
-        return $this->firstname . ' ' . $initial . '. ' . $this->lastname . ' ' . $suffix;
+        return $this->designation . ' ' . $this->firstname . ' ' . $initial . '. ' . $this->lastname . ' ' . $suffix;
 	}
 
 	public function addressBookDetail()

@@ -31,6 +31,18 @@ class AddressBooksController extends Controller
         return response()->json($members);
     }
 
+    public function searchAllMembers(Request $request)
+    {
+        $query = $request['keyword'];
+
+        // return response()->json($query);
+
+        $members = AddressBook::search($query)
+            ->simplePaginate(20);
+
+        return response()->json($members);
+    }
+
     public function changeIsAttended($id)
     {
         $addressBook = AddressBook::find($id);
