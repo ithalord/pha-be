@@ -35,6 +35,45 @@ Route::prefix('log')->group(function() {
 
 	 Route::prefix('get')->group(function() {
 	 	Route::get('find_by_description', 'v1\CompaniesController@searchByDescription');
+
+	 	Route::get('/address_books', 'AddressBook\AddressBooksController@searchMembers');
+	 	Route::get('/all', 'AddressBook\AddressBooksController@searchAllMembers');
+	 });
+});
+
+Route::prefix('change')->group(function() {
+	Route::get('/event/{id}', 'AddressBook\EventsController@changeCurrent');
+	Route::get('/year/{id}', 'AddressBook\YearsController@changeCurrent');
+	Route::get('event_detail/{id}', 'AddressBook\AddressBooksController@changeIsAttended');
+	Route::get('register_rfid', 'AddressBook\AddressBooksController@registerRFID');
+	Route::get('is_attending/{id}', 'AddressBook\AddressBookParticipantsController@changeIsAttending');
+});
+
+Route::prefix('delete')->group(function() {
+	Route::get('/event_detail', 'AddressBook\EventDetailsController@softDelete');
+});
+
+Route::prefix('current')->group(function() {
+	Route::get('/years', 'AddressBook\YearsController@getCurrent');
+	Route::get('/year_only', 'AddressBook\YearsController@yearOnly');
+	Route::get('/event/{id}', 'AddressBook\EventsController@currentEvent');
+});
+
+Route::prefix('address_book')->group(function() {
+	 Route::resource('/years', 'AddressBook\YearsController',
+        array('except' => array('create', 'edit')));
+
+	 Route::resource('/events', 'AddressBook\EventsController',
+        array('except' => array('create', 'edit')));
+
+	 Route::resource('/participants', 'AddressBook\AddressBookDetailsController',
+        array('except' => array('create', 'edit')));
+
+	 Route::resource('/person', 'AddressBook\AddressBookParticipantsController',
+        array('except' => array('create', 'edit')));
+
+	 Route::prefix('add')->group(function() {
+	 	Route::post('event_details', 'AddressBook\EventDetailsController@addHospital');
 	 });
 });
 
