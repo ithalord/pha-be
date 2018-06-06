@@ -77,6 +77,17 @@ Route::prefix('address_book')->group(function() {
 	 });
 });
 
+Route::prefix('leave')->group(function() {
+	 Route::resource('/leave_types', 'Leave\LeaveTypesController',
+        array('except' => array('create', 'edit')));
+
+	 Route::resource('/employees', 'Leave\EmployeesController',
+        array('except' => array('create', 'edit')));
+
+	 Route::resource('/leave_details', 'Leave\LeaveDetailsController',
+        array('except' => array('create', 'edit')));
+});
+
 Route::prefix('auth')->group(function() {
 	Route::post('/login', 'v1\AuthenticationController@authenticate');
 });

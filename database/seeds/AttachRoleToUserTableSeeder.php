@@ -26,11 +26,12 @@ class AttachRoleToUserTableSeeder extends Seeder
          * attach cashier role
          */
         $user = User::find(2);
-        // $cashier2 = User::find(3);
         $rolUser = Role::where('slug', 'user')->first();
-
         $user->attachRole($rolUser);
-        // $cashier2->attachRole($rolUser);
+
+        $leaveUser = User::find(3);
+        $roleLeave = Role::where('slug', 'user')->first();
+        $leaveUser->attachRole($rolUser);
 
     }
 }
