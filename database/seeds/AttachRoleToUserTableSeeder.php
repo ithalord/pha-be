@@ -29,9 +29,9 @@ class AttachRoleToUserTableSeeder extends Seeder
         $rolUser = Role::where('slug', 'user')->first();
         $user->attachRole($rolUser);
 
-        $leaveUser = User::find(3);
-        $roleLeave = Role::where('slug', 'user')->first();
-        $leaveUser->attachRole($rolUser);
+        // $leaveUser = User::find(3);
+        // $roleLeave = Role::where('slug', 'user')->first();
+        // $leaveUser->attachRole($rolUser);
 
     }
 }

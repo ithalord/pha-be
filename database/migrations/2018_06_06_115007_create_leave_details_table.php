@@ -18,7 +18,8 @@ class CreateLeaveDetailsTable extends Migration
             $table->string('from');
             $table->string('to');
             $table->enum('status',['approved', 'disapproved', 'pending']);
-            $table->integer('duration');
+            $table->integer('no_of_days');
+            $table->string('reason');
 
             $table->integer('leave_type_id');
 

@@ -16,4 +16,9 @@ class Employee extends Model
 	{
 		return $this->hasMany('App\Models\Leave\Leave');
 	}
+
+	public function user()
+	{
+		return $this->belongsTo('App\User');
+	}
 }

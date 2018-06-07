@@ -26,11 +26,11 @@ class UserTableSeeder extends Seeder
             'password'  =>  'user'
         ]);
 
-        User::create([
-            'name'  =>  'Harold G. Pascual',
-            'email' =>  'phg.hgp@gmail.com',
-            'previlege_id' =>  2,
-            'password'  =>  '!p$ssw0rd'
-        ]);
+        // User::create([
+        //     'name'  =>  'Harold G. Pascual',
+        //     'email' =>  'pha.hgp@gmail.com',
+        //     'previlege_id' =>  2,
+        //     'password'  =>  '!p$ssw0rd'
+        // ]);
     }
 }

@@ -25,7 +25,7 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'previlege_id'
+        'name', 'email', 'password', 'employee_id', 'previlege_id'
     ];
 
     /**
@@ -35,6 +35,12 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    protected $casts = [
+        'previlege_id'  =>  'integer',
+        'employee_id'   =>  'integer',
+        'id'            =>  'integer'
     ];
 
     public function setPasswordAttribute($value) {
@@ -49,5 +55,10 @@ class User extends Model implements AuthenticatableContract,
     public function previlege()
     {
       return $this->belongsTo('App\Models\Previlege');
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo('App\Models\Leave\Employee');
     }
 }

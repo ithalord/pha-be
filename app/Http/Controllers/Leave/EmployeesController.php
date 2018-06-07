@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Leave;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Leave\Employee;
+use App\User;
+use Bican\Roles\Models\Role;
 
 class EmployeesController extends Controller
 {
@@ -37,9 +39,35 @@ class EmployeesController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+        $role_id = $input['role_id'];
 
         $employee = Employee::create($input);
         $employee->save();
+
+        $mi = explode(' ', $employee['middlename']);
+        $initial = '';
+        if (count($mi) > 1) {
+            foreach ($mi as $m) {
+                $initial .= substr($m, 0, 1);
+            }
+        } else {
+            $initial .= substr($employee['middlename'], 0, 1);
+        }
+
+        $suffix = $employee['suffixname'] ? $employee['suffixname'] : '';
+
+        $fullname = $employee['designation'] . ' ' . $employee['firstname'] . ' ' . $initial . '. ' . $employee['lastname'] . ' ' . $suffix;
+
+        $user = User::create([
+            'name'          =>      $fullname,
+            'email'         =>      $input['email'],
+            'password'      =>      'user',
+            'employee_id'   =>      $employee['id'],
+            'previlege_id'  =>      $input['previlege_id']
+        ]);
+
+        $role = Role::find($role_id);
+        $user->attachRole($role);
 
         return response()->json(['employee' => $employee]);
     }
