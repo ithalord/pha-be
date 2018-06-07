@@ -17,7 +17,11 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        return response()->json(['employees' => Employee::all()]);
+        $employees = User::with('roles', 'employee',  'previlege')
+                    ->where('employee_id', '>', 0)
+                    ->get();
+
+        return response()->json(['employees' => $employees]);
     }
 
     /**
@@ -56,7 +60,15 @@ class EmployeesController extends Controller
 
         $suffix = $employee['suffixname'] ? $employee['suffixname'] : '';
 
-        $fullname = $employee['designation'] . ' ' . $employee['firstname'] . ' ' . $initial . '. ' . $employee['lastname'] . ' ' . $suffix;
+        if($employee['designation'] === '' && $suffix === '') {
+            $fullname = $employee['firstname'] . ' ' . $initial . '. ' . $employee['lastname'];
+        } else if($employee['designation'] === '') {
+            $fullname = $employee['firstname'] . ' ' . $initial . '. ' . $employee['lastname'] . ' ' . $suffix;
+        } else if($suffix === '') {
+            $fullname = $employee['designation'] . ' ' . $employee['firstname'] . ' ' . $initial . '. ' . $employee['lastname'];
+        } else if($employee['designation'] !== '' && $suffix !== '') {
+            $fullname = $employee['designation'] . ' ' . $employee['firstname'] . ' ' . $initial . '. ' . $employee['lastname'] . ' ' . $suffix;
+        }
 
         $user = User::create([
             'name'          =>      $fullname,
@@ -69,7 +81,9 @@ class EmployeesController extends Controller
         $role = Role::find($role_id);
         $user->attachRole($role);
 
-        return response()->json(['employee' => $employee]);
+        $emp = User::with('roles', 'employee',  'previlege')->find($user['id']);
+
+        return response()->json(['employee' => $emp]);
     }
 
     /**

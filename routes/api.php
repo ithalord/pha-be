@@ -86,6 +86,9 @@ Route::prefix('leave')->group(function() {
 
 	 Route::resource('/leave_details', 'Leave\LeaveDetailsController',
         array('except' => array('create', 'edit')));
+
+	 Route::resource('/previleges', 'Leave\PrevilegesController',
+        array('except' => array('create', 'edit')));
 });
 
 Route::prefix('auth')->group(function() {
