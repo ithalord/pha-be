@@ -17,6 +17,7 @@ class CreateAddressBookDetailsTable extends Migration
             $table->increments('id');
             $table->integer('address_book_id');
             $table->integer('address_book_participant_id');
+            $table->boolean('is_attending');
 
             $table->timestamps();
         });

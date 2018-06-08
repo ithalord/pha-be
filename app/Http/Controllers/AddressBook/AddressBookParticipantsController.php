@@ -79,16 +79,6 @@ class AddressBookParticipantsController extends Controller
         return response()->json(['participant' => $participant]);
     }
 
-    public function changeIsAttending($id)
-    {
-        $attendee = AddressBookParticipant::find($id);
-
-        $attendee->is_attending = !$attendee->is_attending;
-        $attendee->save();
-
-        return response()->json($attendee);
-    }
-
     /**
      * Remove the specified resource from storage.
      *

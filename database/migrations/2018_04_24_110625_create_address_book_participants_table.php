@@ -20,7 +20,6 @@ class CreateAddressBookParticipantsTable extends Migration
             $table->string('middlename');
             $table->string('lastname');
             $table->string('suffixname')->nullable();
-            $table->boolean('is_attending');
             $table->timestamps();
         });
     }

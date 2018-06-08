@@ -47,19 +47,29 @@ class AddressBookDetailsController extends Controller
                 'firstname'       =>  $p['firstname'],
                 'middlename'       =>  $p['middlename'],
                 'lastname'       =>  $p['lastname'],
-                'suffixname'       =>  $p['suffixname'],
-                'is_attending'       =>  1
+                'suffixname'       =>  $p['suffixname']
             ]);
 
             $addressBookDetail = AddressBookDetail::create([
                 'address_book_participant_id' => $addressBookParticipant['id'],
-                'address_book_id' => $input['address_book_id']
+                'address_book_id' => $input['address_book_id'],
+                'is_attending'       =>  1
             ]);
         }
 
         $addressBook = AddressBook::with('addressBookDetails.attendee')->find($input['address_book_id']);
 
         return response()->json(['address_book' => $addressBook]);
+    }
+
+    public function changeIsAttending($id)
+    {
+        $attendee = AddressBookDetail::find($id);
+
+        $attendee->is_attending = !$attendee->is_attending;
+        $attendee->save();
+
+        return response()->json($attendee);
     }
 
     /**
