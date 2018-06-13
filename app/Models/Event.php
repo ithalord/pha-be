@@ -24,4 +24,9 @@ class Event extends Model
 	{
 		return $this->hasMany('App\Models\EventDetail')->where('is_deleted', false);
 	}
+
+	public function eventDetailsIsAttendedOnly()
+	{
+		return $this->hasMany('App\Models\EventDetail')->where('is_attended', true)->where('is_deleted', false);
+	}
 }

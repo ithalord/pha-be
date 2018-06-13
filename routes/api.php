@@ -38,6 +38,7 @@ Route::prefix('log')->group(function() {
 
 	 	Route::get('/address_books', 'AddressBook\AddressBooksController@searchMembers');
 	 	Route::get('/all', 'AddressBook\AddressBooksController@searchAllMembers');
+	 	Route::get('event_summary/{id}', 'AddressBook\EventsController@eventSummary');
 	 });
 });
 
