@@ -47,6 +47,7 @@ Route::prefix('change')->group(function() {
 	Route::get('event_detail/{id}', 'AddressBook\AddressBooksController@changeIsAttended');
 	Route::get('register_rfid', 'AddressBook\AddressBooksController@registerRFID');
 	Route::get('is_attending/{id}', 'AddressBook\AddressBookDetailsController@changeIsAttending');
+	Route::get('is_attended/{id}', 'AddressBook\EventDetailsController@changeIsAttended');
 });
 
 Route::prefix('delete')->group(function() {

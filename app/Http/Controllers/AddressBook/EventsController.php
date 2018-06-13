@@ -40,20 +40,6 @@ class EventsController extends Controller
             ->where('year_id', $id)
             ->first();
 
-        // $event = Event::with('eventDetails.addressBook.addressBookDetails.attendee')
-        //     ->whereHas('eventDetails', function($eventDetails) {
-        //         $eventDetails->whereHas('addressBook', function($addressBook) {
-        //             $addressBook->whereHas('addressBookDetails', function($addressBookDetails) {
-        //                 $addressBookDetails->where('is_attending', true);
-        //             });
-        //         });
-        //     })
-        //     ->where('on_going', true)
-        //     ->where('year_id', $id)
-        //     ->first();
-
-
-
             $event = Event::with('eventDetails.addressBook.addressBookDetailsAttendingOnly.attendee')
                 ->where('on_going', true)
                 ->where('year_id', $id)
