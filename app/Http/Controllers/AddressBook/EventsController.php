@@ -100,7 +100,7 @@ class EventsController extends Controller
 
     public function eventSummary($id)
     {
-        $event = Event::with('eventDetailsIsAttendedOnly.addressBook.addressBookDetails.attendee')->find($id);
+        $event = Event::with('eventDetailsIsAttendedOnly.addressBook.addressBookDetailsAttendingOnly.attendee')->find($id);
 
         return response()->json(['event' => $event]);
     } 

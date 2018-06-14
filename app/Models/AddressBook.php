@@ -37,6 +37,8 @@ class AddressBook extends Model
     'is_attended' =>  'boolean'
    ];
 
+   protected $table = 'address_books';
+
   public function addressBookDetails()
   {
     return $this->hasMany('App\Models\AddressBookDetail');

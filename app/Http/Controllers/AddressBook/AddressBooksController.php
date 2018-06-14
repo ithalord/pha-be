@@ -13,6 +13,7 @@ class AddressBooksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
@@ -51,12 +52,16 @@ class AddressBooksController extends Controller
 
     public function registerRFID(Request $request)
     {
+        // $this->validate($request['card_id'], [
+        //     'card_id' => 'unique : address_books, card_id'
+        // ]);
+
         $id = $request['id'];
-        $serial = $request['serial'];
+        $card_id = $request['card_id'];
 
         $addressBook = AddressBook::find($id);
 
-        $addressBook->card_id = $serial;
+        $addressBook->card_id = $card_id;
         $addressBook->save();
 
         return response()->json($addressBook);
