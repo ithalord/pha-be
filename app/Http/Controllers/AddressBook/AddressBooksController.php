@@ -52,19 +52,24 @@ class AddressBooksController extends Controller
 
     public function registerRFID(Request $request)
     {
-        // $this->validate($request['card_id'], [
-        //     'card_id' => 'unique : address_books, card_id'
-        // ]);
 
         $id = $request['id'];
         $card_id = $request['card_id'];
 
-        $addressBook = AddressBook::find($id);
+        $hospitalCounter = AddressBook::where('card_id', $card_id)->count();
+        $hospital = AddressBook::where('card_id', $card_id)->first();
 
-        $addressBook->card_id = $card_id;
-        $addressBook->save();
+        if($hospitalCounter > 0) {
+            $addressBook = 'RFID already taken!';
+        } else if($hospitalCounter == 0) {
+            $addressBook = AddressBook::find($id);
 
-        return response()->json($addressBook);
+            $addressBook->card_id = $card_id;
+            $addressBook->save();
+        }
+
+
+        return response()->json(['counter' => $hospitalCounter, 'hospital' => $hospital, 'address_book' => $addressBook]);
     }
 
     /**
