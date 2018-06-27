@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Year;
+use App\Models\AddressBook;
 
 class EventsController extends Controller
 {
@@ -67,6 +68,15 @@ class EventsController extends Controller
     public function store(Request $request)
     {
     	$input = $request->all();
+        $region = $input['region'];
+
+        foreach($region as $r) {
+            $reg = AddressBook::where('region', $r['regDesc'])->get();
+            $regs->{'regions'} = $reg;
+        }
+
+        return response()->json($regs);
+
 
     	$this->validate($request, array(
     		'name'	=>		'required',
