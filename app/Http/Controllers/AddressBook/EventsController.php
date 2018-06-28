@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Year;
 use App\Models\AddressBook;
+use App\Models\EventDetail;
 
 class EventsController extends Controller
 {
@@ -68,15 +69,9 @@ class EventsController extends Controller
     public function store(Request $request)
     {
     	$input = $request->all();
-        $region = $input['region'];
+        $regions = $input['regions'];
 
-        foreach($region as $r) {
-            $reg = AddressBook::where('region', $r['regDesc'])->get();
-            $regs->{'regions'} = $reg;
-        }
-
-        return response()->json($regs);
-
+        $regs = AddressBook::whereIn('region', $regions)->get();
 
     	$this->validate($request, array(
     		'name'	=>		'required',
@@ -90,6 +85,19 @@ class EventsController extends Controller
 
     	$event = Event::create($input);
     	$event->save();
+
+        foreach($regs as $r) {
+            $eventDetail = EventDetail::create([
+                'address_book_id'   =>  $r['id'],
+                'event_id'          =>  $event['id'],
+                'is_attended'       =>  0
+            ]);
+
+            $hospital = AddressBook::find($r['id']);
+            $hospital->is_attended = 1;
+            $hospital->save();
+        }
+
     	$event = Event::find($event->id);
 
     	return response()->json(['event' => $event]);
