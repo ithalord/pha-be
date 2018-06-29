@@ -12,12 +12,10 @@ class AddressBookParticipant extends Model
 		'middlename',
 		'lastname',
 		'suffixname',
-		'is_attending'
 	];
 
 	protected $casts = [
 		'id'			=>	'integer',
-		'is_attending'	=>	'boolean'
 	];
 
 	protected $appends = [

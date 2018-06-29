@@ -28,7 +28,7 @@ class AuthenticationController extends Controller
             array_push($roles, $role->slug);
         }
 
-        $user = User::with('roles')->find(Auth::user()->id);
+        $user = User::with('roles', 'employee')->find(Auth::user()->id);
 
         return response()->json(compact('token', 'roles','user'));
     }

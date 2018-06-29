@@ -30,13 +30,28 @@ class EventDetailsController extends Controller
         //
     }
 
+    public function changeIsAttended($id)
+    {
+        $eventDetail = EventDetail::find($id);
+
+        $eventDetail->is_attended = !$eventDetail['is_attended'];
+        $eventDetail->save();
+
+        $event = Event::with('eventDetails.addressBook.addressBookDetailsAttendingOnly.attendee')
+                ->where('on_going', true)
+                ->find($eventDetail['event_id']);
+
+        return response()->json(['event' => $event]);
+    }
+
     public function addHospital(Request $request)
     {
         $input = $request->all();
 
         $eventDetail = EventDetail::create([
             'address_book_id'   =>  $input['address_book_id'],
-            'event_id'          =>  $input['event_id']
+            'event_id'          =>  $input['event_id'],
+            'is_attended'       =>  0
         ]);
 
         $eventDetail = EventDetail::with('addressBook')->find($eventDetail['id']);

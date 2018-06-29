@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\AddressBook;
+namespace App\Http\Controllers\Leave;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\AddressBookParticipant;
+use App\Models\Leave\LeaveType;
 
-class AddressBookParticipantsController extends Controller
+class LeaveTypesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class AddressBookParticipantsController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(['leave_types' => LeaveType::all()]);
     }
 
     /**
@@ -36,7 +36,12 @@ class AddressBookParticipantsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        $leave = LeaveType::create($input);
+        $leave->save();
+
+        return response()->json(['leave_type' => $leave]);
     }
 
     /**
@@ -58,7 +63,7 @@ class AddressBookParticipantsController extends Controller
      */
     public function edit($id)
     {
-        // 
+        //
     }
 
     /**
@@ -70,13 +75,7 @@ class AddressBookParticipantsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $participant = AddressBookParticipant::find($id);
-
-        $input = $request->all();
-
-        $participant->fill($input)->save();
-
-        return response()->json(['participant' => $participant]);
+        //
     }
 
     /**

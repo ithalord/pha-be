@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAddressBookDetailsTable extends Migration
+class CreateLeaveTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateAddressBookDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('address_book_details', function (Blueprint $table) {
+        Schema::create('leave_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('address_book_id');
-            $table->integer('address_book_participant_id');
-            $table->boolean('is_attending');
+            $table->string('description');
+            $table->string('code');
+            $table->integer('balance');
 
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CreateAddressBookDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('address_book_details');
+        Schema::dropIfExists('leave_types');
     }
 }

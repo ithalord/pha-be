@@ -38,6 +38,7 @@ Route::prefix('log')->group(function() {
 
 	 	Route::get('/address_books', 'AddressBook\AddressBooksController@searchMembers');
 	 	Route::get('/all', 'AddressBook\AddressBooksController@searchAllMembers');
+	 	Route::get('event_summary/{id}', 'AddressBook\EventsController@eventSummary');
 	 });
 });
 
@@ -46,7 +47,8 @@ Route::prefix('change')->group(function() {
 	Route::get('/year/{id}', 'AddressBook\YearsController@changeCurrent');
 	Route::get('event_detail/{id}', 'AddressBook\AddressBooksController@changeIsAttended');
 	Route::get('register_rfid', 'AddressBook\AddressBooksController@registerRFID');
-	Route::get('is_attending/{id}', 'AddressBook\AddressBookParticipantsController@changeIsAttending');
+	Route::get('is_attending/{id}', 'AddressBook\AddressBookDetailsController@changeIsAttending');
+	Route::get('is_attended/{id}', 'AddressBook\EventDetailsController@changeIsAttended');
 });
 
 Route::prefix('delete')->group(function() {
@@ -75,6 +77,20 @@ Route::prefix('address_book')->group(function() {
 	 Route::prefix('add')->group(function() {
 	 	Route::post('event_details', 'AddressBook\EventDetailsController@addHospital');
 	 });
+});
+
+Route::prefix('leave')->group(function() {
+	 Route::resource('/leave_types', 'Leave\LeaveTypesController',
+        array('except' => array('create', 'edit')));
+
+	 Route::resource('/employees', 'Leave\EmployeesController',
+        array('except' => array('create', 'edit')));
+
+	 Route::resource('/leave_details', 'Leave\LeaveDetailsController',
+        array('except' => array('create', 'edit')));
+
+	 Route::resource('/previleges', 'Leave\PrevilegesController',
+        array('except' => array('create', 'edit')));
 });
 
 Route::prefix('auth')->group(function() {

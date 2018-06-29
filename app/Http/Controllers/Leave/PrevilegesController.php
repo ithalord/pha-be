@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\AddressBook;
+namespace App\Http\Controllers\Leave;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\AddressBookParticipant;
+use App\Models\Previlege;
 
-class AddressBookParticipantsController extends Controller
+class PrevilegesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class AddressBookParticipantsController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(['previleges' => Previlege::all()]);
     }
 
     /**
@@ -58,7 +58,7 @@ class AddressBookParticipantsController extends Controller
      */
     public function edit($id)
     {
-        // 
+        //
     }
 
     /**
@@ -70,13 +70,7 @@ class AddressBookParticipantsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $participant = AddressBookParticipant::find($id);
-
-        $input = $request->all();
-
-        $participant->fill($input)->save();
-
-        return response()->json(['participant' => $participant]);
+        //
     }
 
     /**

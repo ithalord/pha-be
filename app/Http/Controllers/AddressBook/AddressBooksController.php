@@ -13,6 +13,7 @@ class AddressBooksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
@@ -21,8 +22,6 @@ class AddressBooksController extends Controller
     public function searchMembers(Request $request)
     {
         $query = $request['keyword'];
-
-        // return response()->json($query);
 
         $members = AddressBook::where('is_attended', false)
             ->search($query)
@@ -34,8 +33,6 @@ class AddressBooksController extends Controller
     public function searchAllMembers(Request $request)
     {
         $query = $request['keyword'];
-
-        // return response()->json($query);
 
         $members = AddressBook::search($query)
             ->simplePaginate(20);
@@ -55,15 +52,24 @@ class AddressBooksController extends Controller
 
     public function registerRFID(Request $request)
     {
+
         $id = $request['id'];
-        $serial = $request['serial'];
+        $card_id = $request['card_id'];
 
-        $addressBook = AddressBook::find($id);
+        $hospitalCounter = AddressBook::where('card_id', $card_id)->count();
+        $hospital = AddressBook::where('card_id', $card_id)->first();
 
-        $addressBook->card_id = $serial;
-        $addressBook->save();
+        if($hospitalCounter > 0) {
+            $addressBook = 'RFID already taken!';
+        } else if($hospitalCounter == 0) {
+            $addressBook = AddressBook::find($id);
 
-        return response()->json($addressBook);
+            $addressBook->card_id = $card_id;
+            $addressBook->save();
+        }
+
+
+        return response()->json(['counter' => $hospitalCounter, 'hospital' => $hospital, 'address_book' => $addressBook]);
     }
 
     /**
