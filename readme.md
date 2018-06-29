@@ -4,8 +4,8 @@
 
 
 ### Requirments
--Laravel 5.6.
--PHP >= 7.1.3.
+-Laravel 5.6  
+-PHP >= 7.1.3.  
 
 ### How to
 - *composer install*
