@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers\AddressBook;
-ini_set('max_execution_time', 180);
+ini_set('max_execution_time', 300);
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -109,9 +109,14 @@ class EventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $event = Event::with('eventDetails.addressBook.addressBookDetails.attendee')->find($id);
+        $q = $request['q'];
+
+        $event = EventDetail::with('addressBook.addressBookDetails.attendee')
+            ->where('event_id', $id)
+            ->search($q)
+            ->simplePaginate(10);
 
         return response()->json(['event' => $event]);
     }

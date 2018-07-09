@@ -48,4 +48,9 @@ class AddressBook extends Model
   {
     return $this->hasMany('App\Models\AddressBookDetail')->where('is_attending', true);
   }
+
+  public function eventDetails()
+  {
+    return $this->hasMany('App\Models\EventDetail');
+  }
 }
