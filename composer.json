@@ -54,7 +54,7 @@
         ],
         "post-install-cmd": [
              "php artisan clear-compiled",
-             "php artisan key:generate"
+             "php artisan key:generate",
              "chmod -R 777 public/"
          ]
     },
